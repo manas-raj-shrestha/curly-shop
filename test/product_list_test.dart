@@ -8,8 +8,8 @@ class MockApi extends ApiService {
   @override
   Future<List<Product>> getProducts() {
     return Future.value([
-      Product(1, "MacBook Pro 16-inch model", 2399, "imageUrl"),
-      Product(2, "AirPods Pro", 249, "imageUrl"),
+      const Product(1, "MacBook Pro 16-inch model", 2399, "imageUrl"),
+      const Product(2, "AirPods Pro", 249, "imageUrl"),
     ]);
   }
 }
@@ -24,6 +24,11 @@ void main() {
       await productListViewModel.getProducts();
 
       expect(productListViewModel.products.length, 2);
+      expect(productListViewModel.products[0].id, 1);
+      expect(productListViewModel.products[0].price, 2399);
+
+      expect(productListViewModel.products[1].id, 2);
+      expect(productListViewModel.products[1].price, 249);
     });
   });
 }

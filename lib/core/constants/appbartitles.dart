@@ -1,1 +1,1 @@
-const String productListPageTitle = 'Products';
+const String productListPageTitle = 'Curly Shop';

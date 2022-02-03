@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:unit_test/core/models/product.dart';
+import 'package:unit_test/core/viewmodels/cart_model.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final CartModel cartModel;
 
-  const ProductCard(this.product, {Key? key}) : super(key: key);
+  const ProductCard(this.product, this.cartModel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.name ?? '',
+                    product.name,
                     style: ProductCardStyles.titleStyle,
                   ),
                   const SizedBox(
@@ -35,12 +37,15 @@ class ProductCard extends StatelessWidget {
                     height: 16,
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text('Add to cart'))
+                      onPressed: () {
+                        cartModel.addToCart(product);
+                      },
+                      child: const Text('Add to cart'))
                 ],
               ),
             ),
             Image.network(
-              product.imageUrl ?? '',
+              product.imageUrl,
               height: 150,
               width: 150,
             )

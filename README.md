@@ -1,6 +1,6 @@
-# unit_test
+# Curly Shop
 
-A new Flutter project.
+A online shopping test project with unit testing in Flutter
 
 ## Getting Started
 

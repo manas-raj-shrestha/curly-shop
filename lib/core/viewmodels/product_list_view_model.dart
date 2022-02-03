@@ -5,7 +5,7 @@ import 'package:unit_test/core/services/api_services.dart';
 import 'package:unit_test/core/viewmodels/base_model.dart';
 
 class ProductListViewModel extends BaseModel {
-  final ApiService _apiService = injector<ApiService>();
+  ApiService apiService = injector<ApiService>();
 
   late List<Product> _products;
 
@@ -13,7 +13,7 @@ class ProductListViewModel extends BaseModel {
 
   Future getProducts() async {
     changeState(ViewState.busy);
-    _products = await _apiService.getProducts();
+    _products = await apiService.getProducts();
     changeState(ViewState.idle);
   }
 }

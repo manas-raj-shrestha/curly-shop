@@ -5,6 +5,7 @@ import 'package:unit_test/core/enums/view_states.dart';
 import 'package:unit_test/core/viewmodels/cart_model.dart';
 import 'package:unit_test/core/viewmodels/product_list_view_model.dart';
 import 'package:unit_test/ui/base_view.dart';
+import 'package:unit_test/ui/cart_view.dart';
 import 'package:unit_test/ui/widgets/product_card.dart';
 
 class ProductListView extends StatelessWidget {
@@ -22,7 +23,7 @@ class ProductListView extends StatelessWidget {
                 appBar: AppBar(
                   centerTitle: false,
                   title: const Text(productListPageTitle),
-                  actions: [_buildCartButton(cartModel)],
+                  actions: [_buildCartButton(cartModel, context)],
                 ),
                 body: SafeArea(
                     child: model.viewState == ViewState.busy
@@ -40,11 +41,16 @@ class ProductListView extends StatelessWidget {
     );
   }
 
-  Widget _buildCartButton(CartModel cartModel) {
+  Widget _buildCartButton(CartModel cartModel, BuildContext ctx) {
     return Stack(
       children: [
         IconButton(
-            onPressed: () {}, icon: const Icon(Icons.shopping_cart_outlined)),
+            onPressed: () {
+              Navigator.of(ctx).push(
+                MaterialPageRoute(builder: (context) => CartView(cartModel)),
+              );
+            },
+            icon: const Icon(Icons.shopping_cart_outlined)),
         Positioned(
             top: 0,
             right: 10,
@@ -53,7 +59,7 @@ class ProductListView extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.redAccent),
-                child: Text(cartModel.cartItems.length.toString())))
+                child: Text(cartModel.getTotalCartItems().toString())))
       ],
     );
   }

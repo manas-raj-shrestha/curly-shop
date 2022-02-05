@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:unit_test/core/constants/appbartitles.dart';
 import 'package:unit_test/core/enums/view_states.dart';
+import 'package:unit_test/core/helper/dependency_injection.dart';
+import 'package:unit_test/core/theme/app_theme_provider.dart';
+import 'package:unit_test/core/theme/app_themes.dart';
 
 import 'package:unit_test/core/viewmodels/cart_model.dart';
 import 'package:unit_test/core/viewmodels/product_list_view_model.dart';
@@ -23,7 +26,10 @@ class ProductListView extends StatelessWidget {
                 appBar: AppBar(
                   centerTitle: false,
                   title: const Text(productListPageTitle),
-                  actions: [_buildCartButton(cartModel, context)],
+                  actions: [
+                    buildThemeToggleButton(),
+                    _buildCartButton(cartModel, context)
+                  ],
                 ),
                 body: SafeArea(
                     child: model.viewState == ViewState.busy
@@ -39,6 +45,17 @@ class ProductListView extends StatelessWidget {
         );
       },
     );
+  }
+
+  IconButton buildThemeToggleButton() {
+    AppThemeProvider appThemeProvider = injector<AppThemeProvider>();
+    return IconButton(
+        onPressed: () {
+          appThemeProvider.toggleTheme();
+        },
+        icon: appThemeProvider.currentTheme == CustomTheme.lightTheme
+            ? const Icon(Icons.wb_sunny_rounded)
+            : const Icon(Icons.wb_sunny_outlined));
   }
 
   Widget _buildCartButton(CartModel cartModel, BuildContext ctx) {

@@ -1,8 +1,15 @@
 import 'package:unit_test/core/models/product.dart';
+import 'package:unit_test/core/utils/logger/app_logger.dart';
 import 'package:unit_test/core/viewmodels/base_model.dart';
 
 class CartModel extends BaseModel {
   Map<int, List<Product>> cartItemsMapping = {};
+
+  late AppLogger logger;
+
+  CartModel() {
+    logger = AppLogger.instantiate(runtimeType.toString());
+  }
 
   void addToCart(Product product) {
     if (cartItemsMapping.containsKey(product.id)) {
